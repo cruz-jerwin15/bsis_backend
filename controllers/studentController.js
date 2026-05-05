@@ -62,8 +62,40 @@ const addStudentController = async (req,res)=>{
     }
 
 }
+const getSingleStudentByIdController = async (req,res)=>{
+    try {
+       const {id} = req.params;
+       const data = await Student.getSingleStudentModel(id); 
+       if(!data){
+        return res.status(404).json(
+                {
+                    success:false,
+                    message:"Record not found",
+                    data:null
+                }
+        );
+       }
+       return res.status(200).json({
+            success:true,
+            message:"1 record found.",
+            data:data
+       })
+
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json(
+            {
+                success:false,
+                message:"Failed to get record",
+                data:null
+            }
+        );
+    }
+
+}
 
 module.exports={
     getAllStudentController,
-    addStudentController
+    addStudentController,
+    getSingleStudentByIdController
 }

@@ -20,6 +20,12 @@ class Student{
         return results.insertId;
 
     }
+    // get single record
+    static async getSingleStudentModel(id){
+        const [results] = await pool.query(`SELECT * FROM tbl_student WHERE id = ?`,[id]);
+        return results[0];
+
+    }
    
 }
 
